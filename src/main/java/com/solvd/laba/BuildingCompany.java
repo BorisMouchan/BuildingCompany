@@ -18,50 +18,49 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BuildingCompany {
+
     private static final Logger LOGGER = LogManager.getLogger(BuildingCompany.class);
 
     public static void main(String[] args) {
-//
-//        LinkedList<String> partnersList = new LinkedList<String>();
-//        partnersList.add("Bosch");
-//        partnersList.add("Apple");
-//        partnersList.add("Samsung");
-//        partnersList.add("Mechanic Limited company");
-//        partnersList.printList();
-//        System.out.println("===============");
-//        partnersList.remove("Samsung");
-//        partnersList.printList();
+
+
+        LinkedList<String> partnersList = new LinkedList<String>();
+        partnersList.add("Bosch");
+        partnersList.add("Apple");
+        partnersList.add("Samsung");
+        partnersList.add("Mechanic Limited company");
+        partnersList.printList();
+        System.out.println("===============");
+        partnersList.remove("Samsung");
+        partnersList.printList();
 
         Transaction allTransactions = new Transaction();
         Bulldozer allBuldozers = new Bulldozer();
 
-        Bulldozer bull2 = new Bulldozer("AZ",-2005,true,4);
-        Bulldozer bull3 = new Bulldozer("MAZ",-2005,true,5);
+        Bulldozer bull2 = new Bulldozer("AZ", -2005, true, 4);
+        Bulldozer bull3 = new Bulldozer("MAZ", -2005, true, 5);
+        allBuldozers.addBulldozer(bull2);
 
         Crane crane = new Crane();
         crane.build(0);
 
 
-        try {Employee emp1 = new Employee("semen", 28);
+        try {
+            Employee emp1 = new Employee("semen", 28);
             emp1.printPersonalInfo(null);
         } catch (PrintNullException | AgeException e) {
             LOGGER.error(e.getMessage());
         }
 
         try {
-           Driver driv = new Driver("name",88,1800,DriveCategory.B);
+            Driver driv = new Driver("name", 88, 1800, DriveCategory.B);
         } catch (AgeException e) {
+            System.out.println(e.getMessage());
             LOGGER.error(e.getMessage());
         }
 
-        Driver driv1 = new Driver();
-        try {
-            driv1.setPersonAge(90);
-        } catch (AgeException e) {
-            LOGGER.error(e.getMessage());
-        }
 
-        Transaction trns = new Transaction("213","Warsaw","aqa11","ALFA", CurrencyType.USD,"Pay",500);
+        Transaction trns = new Transaction("213", "Warsaw", "aqa11", "ALFA", CurrencyType.USD, "Pay", -500);
         try {
             trns.makePayments();
         } catch (TransactionException e) {
