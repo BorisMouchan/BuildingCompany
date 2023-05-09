@@ -38,7 +38,7 @@ public class FIleReader {
 
         List<String> list = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            System.out.println("Word:" + entry.getKey() + " - " + "value: " + entry.getValue());
+            list.add("Word:" + entry.getKey() + " - " + "value: " + entry.getValue());
         }
 
         File fileOutput = new File(System.getProperty("user.dir") + "/src/main/resources/fileOutput.txt");
