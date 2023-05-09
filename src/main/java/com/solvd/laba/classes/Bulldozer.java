@@ -7,6 +7,7 @@ import com.solvd.laba.interfaces.IDestroy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Bulldozer extends Vehicles implements IBulding, IDestroy {
 
@@ -25,11 +26,11 @@ public class Bulldozer extends Vehicles implements IBulding, IDestroy {
 
     }
 
-//    static {
-//        System.out.println("How many gasoline do you need? ");
-//        Scanner scanner = new Scanner(System.in);
-//        amountOfGasoline = scanner.nextInt();
-//    }
+    static {
+        System.out.println("How many gasoline do you need? ");
+        Scanner scanner = new Scanner(System.in);
+        amountOfGasoline = scanner.nextInt();
+    }
 
     public int getMAX_SPEED() {
         return MAX_SPEED;

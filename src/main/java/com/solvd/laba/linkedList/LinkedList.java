@@ -6,32 +6,32 @@ public class LinkedList<T> {
     private Node<T> head;
     private int size;
 
-    public LinkedList(){
+    public LinkedList() {
         head = null;
     }
 
     public void add(T t) {
         Node<T> newNode = new Node<>(t);
         Node<T> currentNode = head;
-        if (head==null) {
+        if (head == null) {
             head = newNode;
         } else {
-            while(currentNode.nextNode !=null) {
-                currentNode=currentNode.nextNode;
+            while (currentNode.nextNode != null) {
+                currentNode = currentNode.nextNode;
             }
-            currentNode.nextNode=newNode;
+            currentNode.nextNode = newNode;
         }
         size++;
     }
 
-    public void addPosition(T t, int index){
-        if (size+1<index){
+    public void addPosition(T t, int index) {
+        if (size + 1 < index) {
             System.out.println("Wrong index in LinkedList ");
         }
-        if(index==1){
+        if (index == 1) {
             Node<T> temp = head;
-            head= new Node<>(t);
-            head.nextNode=temp;
+            head = new Node<>(t);
+            head.nextNode = temp;
             return;
         }
         Node<T> temp = head;
@@ -51,7 +51,7 @@ public class LinkedList<T> {
         while (currentNode != null) {
             if (currentNode.data.equals(t)) {
                 size--;
-                if(currentNode == head) {
+                if (currentNode == head) {
                     head = currentNode.nextNode;
                 } else {
                     prevNode.nextNode = currentNode.nextNode;
@@ -63,14 +63,14 @@ public class LinkedList<T> {
         }
     }
 
-    public void clear(){
-        size=0;
-        head=null;
+    public void clear() {
+        size = 0;
+        head = null;
     }
 
     public void printList() {
         Node<T> currentNode = head;
-        if (head !=null){
+        if (head != null) {
             System.out.println(head.data);
         }
         while (currentNode.nextNode != null) {
@@ -78,9 +78,11 @@ public class LinkedList<T> {
             System.out.println(currentNode.data + " ");
         }
     }
+
     public int getSize() {
         return size;
     }
+
     public static class Node<T> {
         private T data;
         private Node<T> nextNode;

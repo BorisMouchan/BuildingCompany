@@ -1,23 +1,12 @@
 package com.solvd.laba.exceptions;
 
-public class PrintNullException extends Exception {
+public class PrintNullException extends NullPointerException {
+
 
     public PrintNullException() {
     }
 
-    public PrintNullException(String message) {
-        super(message);
-    }
-
-    public PrintNullException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public PrintNullException(Throwable cause) {
-        super(cause);
-    }
-
-    public PrintNullException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public PrintNullException(String s) {
+        super(s);
     }
 }

@@ -23,7 +23,6 @@ public class BuildingCompany {
 
     public static void main(String[] args) {
 
-
         LinkedList<String> partnersList = new LinkedList<String>();
         partnersList.add("Bosch");
         partnersList.add("Apple");
@@ -39,11 +38,11 @@ public class BuildingCompany {
 
         Bulldozer bull2 = new Bulldozer("AZ", -2005, true, 4);
         Bulldozer bull3 = new Bulldozer("MAZ", -2005, true, 5);
+
         allBuldozers.addBulldozer(bull2);
 
         Crane crane = new Crane();
         crane.build(0);
-
 
         try {
             Employee emp1 = new Employee("semen", 28);
