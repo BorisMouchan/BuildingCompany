@@ -77,8 +77,13 @@ public class Project {
         return Objects.hash(projectName, projectType, projectCost, architectorName);
     }
 
-    public static int calculateCost(int daysWorksOnProject, int costPerDay, BiFunction<Integer, Integer,Integer> function){
-        return function.apply(daysWorksOnProject, costPerDay);
+    public static int calculateCost(int daysWorksOnProject, int costPerDay){
+        BiFunction<Integer, Integer, Integer> func = (x1, x2) -> {
+            return x1 * x2;
+        };
+
+        Integer result = func.apply(daysWorksOnProject, costPerDay);
+        return result;
     }
 
     public static void printProjectInfo(Project project){

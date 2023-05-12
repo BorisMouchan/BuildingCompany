@@ -48,9 +48,9 @@ public class Driver extends Employee implements IMoveable {
     }
 
 
-    public static List<Driver> getDriverCategoryB(List<Driver> allDrivers) {
+    public static List<Driver> getDriverCategory(List<Driver> allDrivers,DriveCategory driveCategory1) {
         int count=0;
-        ICalculate<Driver> c = i -> i.getDriveCategory().equals(DriveCategory.B);
+        ICalculate<Driver> c = i -> i.getDriveCategory().equals(driveCategory1);
         List<Driver> searchDrivers = new ArrayList<>();
         for (Driver driver : allDrivers) {
             if (c.calculate(driver)) {
@@ -66,7 +66,7 @@ public class Driver extends Employee implements IMoveable {
             }
             return result;
         };
-        System.out.println(func.apply(count));
+        System.out.println(func.apply(finalCount));
 
         return searchDrivers;
 

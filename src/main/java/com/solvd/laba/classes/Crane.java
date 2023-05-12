@@ -4,6 +4,7 @@ import com.solvd.laba.exceptions.IncorectLevelBuildingException;
 import com.solvd.laba.exceptions.NegativePurchaseYearException;
 import com.solvd.laba.interfaces.IBulding;
 import com.solvd.laba.interfaces.IDestroy;
+import com.solvd.laba.interfaces.functional.IConvert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +17,7 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
 
     private static final Logger LOGGER = LogManager.getLogger(Crane.class);
 
-    private int maxHeight;
+    private int maxHeight; // in levels
     private int maxWeightToUp;
     protected int weightToUp;
 
@@ -59,7 +60,7 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
                 ", vehicleName='" + vehicleName + '\'' +
                 ", purchaseYear=" + purchaseYear +
                 ", warranty=" + warranty +
-                "} " + super.toString();
+                "} ";
     }
 
     @Override
@@ -93,6 +94,11 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
     public boolean check(int level){
         Predicate<Integer> buildingHeight = i -> maxHeight <=i;
         return !buildingHeight.test(level);
+    }
+
+    public void convertToMeters(){
+        IConvert<Crane> maxMetersHeught = c -> (double) 2.44 * c;
+        System.out.println("Max height for " + Crane.this.getVehicleName() +" is "+ maxMetersHeught.convert(getMaxHeight()) +" meters!");
     }
 
 

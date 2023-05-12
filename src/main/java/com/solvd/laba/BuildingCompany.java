@@ -3,10 +3,7 @@ package com.solvd.laba;
 import java.util.*;
 import java.util.function.Predicate;
 
-import com.solvd.laba.classes.Bulldozer;
-import com.solvd.laba.classes.Crane;
-import com.solvd.laba.classes.Driver;
-import com.solvd.laba.classes.Project;
+import com.solvd.laba.classes.*;
 import com.solvd.laba.enums.DriveCategory;
 import com.solvd.laba.enums.ProjectType;
 import com.solvd.laba.interfaces.functional.ICalculate;
@@ -79,11 +76,12 @@ public class BuildingCompany {
         //add method to Project with Consumer lambda
         // add Сustom lambda to class Driver to chose driver with category
         //add Function to class Driver in method get category
+        //add custom method compare age employers in class Employee
+        //add custom interface that convert levels to meters using constant height for Class Crane
 
 
-//        Project project1 = new Project();
-//        BiFunction<Integer, Integer, Integer> biFunction = (a, b) -> a * b;
-//        System.out.println(project1.calculateCost(5, 3, biFunction));
+        Project project1 = new Project();
+        System.out.println(project1.calculateCost(5, 10));
 //
 //        ArrayList allPartners = new ArrayList<>(Collections.singleton(partnersList));
 //        allPartners.forEach(partner -> System.out.println(partner));
@@ -92,18 +90,24 @@ public class BuildingCompany {
 //        Project.printProjectInfo(projectWithLambda);
 
 //        Crane crane1 = new Crane("Zubr",2015,8,50);
+//        crane1.convertToMeters();
 //        System.out.println(crane1.check(10));
 
-        List<Driver> allDrivers = new ArrayList<>();
-        allDrivers.add(new Driver("Vasya", 25, 2000, DriveCategory.A));
-        allDrivers.add(new Driver("Alex", 55, 5500, DriveCategory.B));
-        allDrivers.add(new Driver("Rob", 35, 2500, DriveCategory.C));
-        allDrivers.add(new Driver("Alex", 55, 5566, DriveCategory.B));
-        allDrivers.add(new Driver("Tom", 55, 2500, DriveCategory.B));
-        allDrivers.add(new Driver("Bob", 55, 50, DriveCategory.A));
-        System.out.println(allDrivers.size());
+//        List<Driver> allDrivers = new ArrayList<>();
+//        allDrivers.add(new Driver("Vasya", 25, 2000, DriveCategory.A));
+//        allDrivers.add(new Driver("Alex", 55, 5500, DriveCategory.B));
+//        allDrivers.add(new Driver("Rob", 35, 2500, DriveCategory.C));
+//        allDrivers.add(new Driver("Alex", 55, 5566, DriveCategory.B));
+//        allDrivers.add(new Driver("Tom", 55, 2500, DriveCategory.B));
+//        allDrivers.add(new Driver("Bob", 55, 50, DriveCategory.A));
+//        System.out.println(allDrivers.size());
+//
+//        System.out.println(Driver.getDriverCategory(allDrivers,DriveCategory.B));
+//
+//        Employee emp1 = new Driver("Den",35,431,DriveCategory.B);
+//        Employee emp2 = new Electric("John",45,540,2);
+//        Employee.compareEmployersAge(emp1,emp2);
 
-        System.out.println(Driver.getDriverCategoryB(allDrivers));
 
 
 

@@ -1,8 +1,8 @@
 package com.solvd.laba.classes;
 
-import com.solvd.laba.exceptions.AgeException;
 import com.solvd.laba.exceptions.PrintNullException;
 import com.solvd.laba.interfaces.IPrintablle;
+import com.solvd.laba.interfaces.functional.IComparable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,8 +45,7 @@ public class Employee extends Person implements IPrintablle {
 
     @Override
     public String toString() {
-        return "Name: " + getPersonName() + "\n" + "Age: " + getPersonAge() + "\n" + "\n" +
-                "\n" +
+        return "Name: " + getPersonName() + "\n" + "Age: " + getPersonAge() + "\n" +
                 "salary: " + getSalary();
     }
 
@@ -67,6 +66,19 @@ public class Employee extends Person implements IPrintablle {
 
     @Override
     public void printPersonalInfo() throws PrintNullException {
+    }
+
+    public static void compareEmployersAge(Employee employee1,Employee employee2) {
+        IComparable<Employee, Employee> emp = (x, y) -> {
+            if (x.getPersonAge() >= y.getPersonAge()) {
+                System.out.println(x.getPersonName() + " older or the similar age then " + y.getPersonName());
+            } else {System.out.println(y.getPersonName() + " older then " + x.getPersonName());}
+            return null;
+        };
+        emp.compareEmployee(employee1,employee2);
 
     }
-}
+
+
+    }
+

@@ -12,19 +12,11 @@ public class Electric extends Employee {
     public Electric() {
     }
 
-    public Electric(String personName, int personAge, int salary, boolean insurance, int worksYearExperience) throws AgeException {
+    public Electric(String personName, int personAge, int salary, int worksYearExperience) {
         super(personName, personAge, salary);
-        this.insurance = insurance;
         this.worksYearExperience = worksYearExperience;
     }
 
-    public boolean isInsurance() {
-        return insurance;
-    }
-
-    public void setInsurance(boolean insurance) {
-        this.insurance = insurance;
-    }
 
     public int getWorksYearExperience() {
         return worksYearExperience;
@@ -38,7 +30,6 @@ public class Electric extends Employee {
     @Override
     public String toString() {
         return "Electric{" +
-                "insurance=" + insurance +
                 ", worksYearExperience=" + worksYearExperience +
                 ", salary=" + salary +
                 ", personName='" + personName + '\'' +
@@ -48,7 +39,7 @@ public class Electric extends Employee {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), insurance, worksYearExperience);
+        return Objects.hash(super.hashCode(), worksYearExperience);
     }
 
     @Override
