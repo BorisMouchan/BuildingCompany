@@ -3,12 +3,16 @@ package com.solvd.laba.classes;
 import com.solvd.laba.enums.ProjectType;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 public class Project {
 
     protected String projectName;
     protected ProjectType projectType;
     protected int projectCost;
+    protected static int daysWorksOnProject;
+    protected static int costPerDay;
     public String architectorName;
 
     public Project() {
@@ -73,6 +77,15 @@ public class Project {
         return Objects.hash(projectName, projectType, projectCost, architectorName);
     }
 
+    public static int calculateCost(int daysWorksOnProject, int costPerDay, BiFunction<Integer, Integer,Integer> function){
+        return function.apply(daysWorksOnProject, costPerDay);
+    }
+
+    public static void printProjectInfo(Project project){
+        Consumer<Project> consumer1 = info -> System.out.println("All information about project :" + info);
+        consumer1.accept(project);
+    }
 
 }
+
 

@@ -11,7 +11,6 @@ public abstract class Vehicles {
     protected String vehicleName;
     protected int purchaseYear;
     protected boolean warranty;
-    private final int WEATHER_TO_CHANGE_TIRES = 4;
 
     public Vehicles() {
     }
@@ -20,13 +19,11 @@ public abstract class Vehicles {
         this.vehicleName = vehicleName;
         this.purchaseYear = purchaseYear;
         this.warranty = warranty;
-        if (purchaseYear < 0) {
-            try {
-                throw new NegativePurchaseYearException("Be careful! Purchase year is negative! ");
-            } catch (NegativePurchaseYearException e) {
-                LOGGER.error(e.getMessage());
-            }
-        }
+    }
+
+    public Vehicles(String vehicleName, int purchaseYear) {
+        this.vehicleName = vehicleName;
+        this.purchaseYear = purchaseYear;
     }
 
     public String getVehicleName() {
@@ -42,6 +39,13 @@ public abstract class Vehicles {
     }
 
     public void setPurchaseYear(int purchaseYear) {
+        if (purchaseYear < 0) {
+            try {
+                throw new NegativePurchaseYearException("Be careful! Purchase year is negative! ");
+            } catch (NegativePurchaseYearException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
         this.purchaseYear = purchaseYear;
     }
 
@@ -56,6 +60,7 @@ public abstract class Vehicles {
     public abstract void moveToService();
 
     public final void changeTires() {
+        int WEATHER_TO_CHANGE_TIRES = 4;
         if (Weather.getTodayWeather() < WEATHER_TO_CHANGE_TIRES) {
             System.out.println("Need to change tires! ");
         }

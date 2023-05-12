@@ -7,8 +7,10 @@ import com.solvd.laba.interfaces.IDestroy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Crane extends Vehicles implements IDestroy, IBulding {
 
@@ -23,6 +25,11 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
 
     public Crane(String vehicleName, int purchaseYear, boolean warranty, int maxHeight, int maxWeightToUp) {
         super(vehicleName, purchaseYear, warranty);
+        this.maxHeight = maxHeight;
+        this.maxWeightToUp = maxWeightToUp;
+    }
+    public Crane(String vehicleName, int purchaseYear, int maxHeight, int maxWeightToUp) {
+        super(vehicleName, purchaseYear);
         this.maxHeight = maxHeight;
         this.maxWeightToUp = maxWeightToUp;
     }
@@ -57,11 +64,11 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
 
     @Override
     public void moveToService() {
-//        if (purchaseYear < LocalDate.EPOCH.getYear()) {
-//            System.out.println("To service!");
-//        } else {
-//            System.out.println("Warranty is over!");
-//        }
+        if (purchaseYear < LocalDate.now().getYear()) {
+            System.out.println("To service!");
+        } else {
+            System.out.println("Warranty is over!");
+        }
     }
 
     @Override
@@ -82,5 +89,15 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
             System.out.println("Building...");
         }
     }
+
+    public boolean check(int level){
+        Predicate<Integer> buildingHeight = i -> maxHeight <=i;
+        return !buildingHeight.test(level);
+    }
+
+
+
+
 }
+
 

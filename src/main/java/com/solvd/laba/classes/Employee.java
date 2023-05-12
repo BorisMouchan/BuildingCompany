@@ -3,10 +3,14 @@ package com.solvd.laba.classes;
 import com.solvd.laba.exceptions.AgeException;
 import com.solvd.laba.exceptions.PrintNullException;
 import com.solvd.laba.interfaces.IPrintablle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
 public class Employee extends Person implements IPrintablle {
+
+    private static final Logger LOGGER = LogManager.getLogger(Employee.class);
 
     protected int salary;
     public static int employersCount;
@@ -14,13 +18,13 @@ public class Employee extends Person implements IPrintablle {
     public Employee() {
     }
 
-    public Employee(String personName, int personAge, int salary) throws AgeException {
+    public Employee(String personName, int personAge) {
         super(personName, personAge);
-        this.salary = salary;
     }
 
-    public Employee(String personName, int personAge) throws AgeException {
+    public Employee(String personName, int personAge, int salary) {
         super(personName, personAge);
+        this.salary = salary;
     }
 
     public int getSalary() {

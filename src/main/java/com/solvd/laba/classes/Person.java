@@ -3,15 +3,19 @@ package com.solvd.laba.classes;
 import com.solvd.laba.exceptions.AgeException;
 import com.solvd.laba.exceptions.PrintNullException;
 import com.solvd.laba.interfaces.IPrintablle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
 public abstract class Person implements IPrintablle {
 
+    private static final Logger LOGGER = LogManager.getLogger(Person.class);
+
     protected String personName;
     protected int personAge;
 
-    public Person(String personName, int personAge) throws AgeException {
+    public Person(String personName, int personAge){
         this.personName = personName;
         this.personAge = personAge;
     }
@@ -31,11 +35,15 @@ public abstract class Person implements IPrintablle {
         return personAge;
     }
 
-    public void setPersonAge(int personAge) throws AgeException {
-        this.personAge = personAge;
+    public void setPersonAge(int personAge)  {
         if (personAge <= 0 || personAge > 65) {
-            throw new AgeException("Age is not correct!!! ");
+            try {
+                throw new AgeException("Age is not correct!!! ");
+            } catch (AgeException e) {
+                LOGGER.error(e.getMessage());
+            }
         }
+        this.personAge = personAge;
     }
 
     @Override

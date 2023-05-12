@@ -11,15 +11,12 @@ public class Architector extends Employee {
     public Architector() {
     }
 
-    public Architector(String personName, int personAge, int projectDone) throws AgeException {
+    public Architector(String personName, int personAge, int projectDone) {
         super(personName, personAge);
-        if (personAge < 0 || personAge > 65) {
-            throw new AgeException("Age is not correct! ");
-        }
         this.projectDone = projectDone;
     }
 
-    public Architector(String personName, int personAge) throws AgeException {
+    public Architector(String personName, int personAge) {
         super(personName, personAge);
     }
 

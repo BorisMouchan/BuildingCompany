@@ -1,5 +1,7 @@
 package com.solvd.laba.enums;
 
+import com.solvd.laba.classes.Driver;
+
 public enum DriveCategory {
     A("A"),
     B("B"),
@@ -15,4 +17,5 @@ public enum DriveCategory {
     DriveCategory(String driveCategory) {
         this.driveCategory = driveCategory;
     }
+
 }

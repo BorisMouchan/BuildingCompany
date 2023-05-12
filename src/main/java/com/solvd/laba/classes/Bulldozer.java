@@ -26,11 +26,11 @@ public class Bulldozer extends Vehicles implements IBulding, IDestroy {
 
     }
 
-    static {
-        System.out.println("How many gasoline do you need? ");
-        Scanner scanner = new Scanner(System.in);
-        amountOfGasoline = scanner.nextInt();
-    }
+//    static {
+//        System.out.println("How many gasoline do you need? ");
+//        Scanner scanner = new Scanner(System.in);
+//        amountOfGasoline = scanner.nextInt();
+//    }
 
     public int getMAX_SPEED() {
         return MAX_SPEED;

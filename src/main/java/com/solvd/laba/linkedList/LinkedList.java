@@ -83,6 +83,14 @@ public class LinkedList<T> {
         return size;
     }
 
+    @Override
+    public String toString() {
+        return "LinkedList{" +
+                "head=" + head +
+                ", size=" + size +
+                '}';
+    }
+
     public static class Node<T> {
         private T data;
         private Node<T> nextNode;
