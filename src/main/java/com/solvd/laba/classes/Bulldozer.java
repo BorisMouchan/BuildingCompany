@@ -4,6 +4,7 @@ import com.solvd.laba.exceptions.NegativePurchaseYearException;
 import com.solvd.laba.interfaces.IBulding;
 import com.solvd.laba.interfaces.IDestroy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -60,11 +61,11 @@ public class Bulldozer extends Vehicles implements IBulding, IDestroy {
 
     @Override
     public void moveToService() {
-//        if (purchaseYear < LocalDate.EPOCH.getYear()) {
-//            System.out.println("To service!");
-//        } else {
-//            System.out.println("Warranty is over!");
-//        }
+        if (purchaseYear < LocalDate.now().getYear()) {
+            System.out.println("To service!");
+        } else {
+            System.out.println("Warranty is over!");
+        }
     }
 
     @Override
