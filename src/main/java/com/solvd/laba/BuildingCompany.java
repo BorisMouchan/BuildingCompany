@@ -1,16 +1,16 @@
 package com.solvd.laba;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import com.solvd.laba.classes.*;
-import com.solvd.laba.enums.DriveCategory;
-import com.solvd.laba.enums.ProjectType;
-import com.solvd.laba.interfaces.functional.ICalculate;
-import com.solvd.laba.linkedList.LinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.sound.midi.MetaEventListener;
 import java.util.List;
 
 public class BuildingCompany {
@@ -36,12 +36,12 @@ public class BuildingCompany {
 //        partnersList.add("Mechanic Limited company");
 //
 //        Transaction allTransactions = new Transaction();
-//        Bulldozer allBuldozers = new Bulldozer();
+//        List<Bulldozer> allBuldozers = new ArrayList<>();
 //
-//        Bulldozer bull2 = new Bulldozer("AZ", -2005, true, 4);
-//        Bulldozer bull3 = new Bulldozer("MAZ", -2005, true, 5);
-//
-//        allBuldozers.addBulldozer(bull2);
+//        allBuldozers.add(new Bulldozer("MERCEDES", 2005, true, 4));
+//        allBuldozers.add(new Bulldozer("MAZ", 2015, true, 5));
+//        allBuldozers.add(new Bulldozer("KAMAZ", 2018, false, 6));
+//        allBuldozers.add(new Bulldozer("UAZ", 2010, true, 7));
 //
 //        Crane crane = new Crane();
 //        crane.build(0);
@@ -53,13 +53,6 @@ public class BuildingCompany {
 //            LOGGER.error(e.getMessage());
 //        }
 
-//        Transaction trns = new Transaction("213", "Warsaw", "aqa11", "ALFA", CurrencyType.USD, "Pay", -500);
-//        try {
-//            trns.makePayments();
-//        } catch (TransactionException e) {
-//            LOGGER.error(e.getMessage());
-//        }
-//        allTransactions.addTransaction(trns);
 //
 //        File file = new File(System.getProperty("user.dir") + "/src/main/resources/input.txt");
 //        String str = "";
@@ -96,14 +89,14 @@ public class BuildingCompany {
 //        crane1.convertToMeters();
 //        System.out.println(crane1.check(10));
 
-        List<Driver> allDrivers = new ArrayList<>();
-        allDrivers.add(new Driver("Vasya", 25, 2000, DriveCategory.A));
-        allDrivers.add(new Driver("Alex", 55, 5500, DriveCategory.B));
-        allDrivers.add(new Driver("Rob", 35, 2500, DriveCategory.C));
-        allDrivers.add(new Driver("Alex", 55, 5566, DriveCategory.B));
-        allDrivers.add(new Driver("Tom", 55, 2500, DriveCategory.B));
-        allDrivers.add(new Driver("Bob", 55, 50, DriveCategory.A));
-        System.out.println(allDrivers.size());
+//        List<Driver> allDrivers = new ArrayList<>();
+//        allDrivers.add(new Driver("Vasya", 25, 2000, DriveCategory.A));
+//        allDrivers.add(new Driver("Alex", 55, 5500, DriveCategory.B));
+//        allDrivers.add(new Driver("Rob", 35, 2500, DriveCategory.C));
+//        allDrivers.add(new Driver("Alex", 55, 5566, DriveCategory.B));
+//        allDrivers.add(new Driver("Tom", 55, 2500, DriveCategory.B));
+//        allDrivers.add(new Driver("Bob", 55, 50, DriveCategory.A));
+//        System.out.println(allDrivers.size());
 //        System.out.println(Driver.getDriverCategory(allDrivers,DriveCategory.B));
 //
 //        Employee emp1 = new Driver("Den",35,431,DriveCategory.B);
@@ -115,9 +108,53 @@ public class BuildingCompany {
         // add method that create List of objects with categoryB. // use collect
         // add method that count the number of drivers with name Alex.
         // use logger.info instead of print ln, norm?
-        Driver.streams(allDrivers);
+        // create method checkReflections for object
+        // use reflection for create object, work with fields, methods
+        // Driver.streamDriver(allDrivers);
+
+        checkReflections(new Employee());
 
 
+    }
+
+    public static void checkReflections(Object o) {
+        Class ourClass = o.getClass();
+        LOGGER.info("Print info about Class: " + ourClass + ".");
+        System.out.println("===================================");
+        LOGGER.info("Class name: " + ourClass);
+        LOGGER.info("Fields: " + Arrays.toString(ourClass.getDeclaredFields()));
+        LOGGER.info("Parent class: " + ourClass.getSuperclass());
+        LOGGER.info("Methods : " +  Arrays.toString(ourClass.getDeclaredMethods()));
+        LOGGER.info("Constructors : " + Arrays.toString(ourClass.getConstructors()));
+        System.out.println("=========Creating================");
+
+        Constructor[] constructors = ourClass.getDeclaredConstructors();
+
+        Object obj = null;
+
+        try {
+            obj = (Object) ourClass.getConstructor(String.class,int.class,int.class).newInstance("Object", 5,2000);
+            LOGGER.info(obj);
+            System.out.println("=======Work with fields==========");
+            Field salary = ourClass.getDeclaredField("salary");
+            salary.setAccessible(true);
+            salary.set(obj,4000);
+            LOGGER.info(obj);
+            System.out.println("=====Work with methods =====");
+            Method printPersonalInfo = ourClass.getDeclaredMethod("printPersonalInfo");
+            printPersonalInfo.setAccessible(true);
+            printPersonalInfo.invoke(obj);
+        } catch (InstantiationException e) {
+            LOGGER.error(e.getMessage());
+        } catch (IllegalAccessException e) {
+            LOGGER.error(e.getMessage());
+        } catch (InvocationTargetException e) {
+            LOGGER.error(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            LOGGER.error(e.getMessage());
+        } catch (NoSuchFieldException e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 }
 

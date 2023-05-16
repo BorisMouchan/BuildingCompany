@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class Driver extends Employee implements IMoveable {
 
     private static final Logger LOGGER = LogManager.getLogger(Driver.class);
-//    public static int count=0;
 
     private DriveCategory driveCategory;
 
@@ -72,15 +71,15 @@ public class Driver extends Employee implements IMoveable {
         return searchDrivers;
 
     }
-    public static void streams(List<Driver> allDrivers) {
+    public static void streamDriver(List<Driver> allDrivers) {
         // Show objects that have a salary greater than 2000, and sorted by them max.
         allDrivers.stream()
                 .filter(driver -> driver.getSalary() >= 2000)
                 .sorted(Comparator.comparing(Driver::getSalary))
                 .forEach(LOGGER::info);
         System.out.println("====================");
-        // Create List of objects with categoryB.
 
+        // Create List of objects with categoryB.
         List<Driver> driversWithCategoryB = allDrivers.stream()
                 .filter(driver -> driver.getDriveCategory().equals(DriveCategory.B))
                 .collect(Collectors.toList());
@@ -90,7 +89,6 @@ public class Driver extends Employee implements IMoveable {
         System.out.println("====================");
 
         // Count the number of drivers with name Alex.
-
         long count = allDrivers.stream().filter(driver -> driver.getPersonName().equals("Alex"))
                 .count();
         LOGGER.info("The number of drivers with name Alex: " + count);

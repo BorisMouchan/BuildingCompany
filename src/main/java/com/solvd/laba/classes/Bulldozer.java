@@ -80,10 +80,14 @@ public class Bulldozer extends Vehicles implements IBulding, IDestroy {
     }
 
 
-    public List<Bulldozer> addBulldozer(Bulldozer bulldozer) {
+    public List<Bulldozer> addBulldozer(List<Bulldozer> allBulldozers, Bulldozer bulldozer) {
         allBulldozers.add(bulldozer);
         return allBulldozers;
     }
 
+
+    public static void bulldozerReflections(List<Bulldozer> allBulldozers){
+
+    }
 }
 

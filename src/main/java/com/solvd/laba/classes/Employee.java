@@ -66,6 +66,7 @@ public class Employee extends Person implements IPrintablle {
 
     @Override
     public void printPersonalInfo() throws PrintNullException {
+        System.out.println("Employee personal info");
     }
 
     public static void compareEmployersAge(Employee employee1,Employee employee2) {
