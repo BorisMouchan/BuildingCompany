@@ -48,8 +48,8 @@ public class Driver extends Employee implements IMoveable {
         System.out.println("Driver " + getPersonName() + " with " + driveCategory + " go to boss! ");
     }
 
-    public static List<Driver> getDriverCategory(List<Driver> allDrivers,DriveCategory driveCategory1) {
-        int count=0;
+    public static List<Driver> getDriverCategory(List<Driver> allDrivers, DriveCategory driveCategory1) {
+        int count = 0;
         ICalculate<Driver> c = i -> i.getDriveCategory().equals(driveCategory1);
         List<Driver> searchDrivers = new ArrayList<>();
         for (Driver driver : allDrivers) {
@@ -61,8 +61,8 @@ public class Driver extends Employee implements IMoveable {
         int finalCount = count;
         Function<Integer, String> func = f -> {
             String result = "No drivers with this category";
-            if(finalCount >0) {
-                result="There are " + finalCount + " with this driver category";
+            if (finalCount > 0) {
+                result = "There are " + finalCount + " with this driver category";
             }
             return result;
         };
@@ -71,6 +71,7 @@ public class Driver extends Employee implements IMoveable {
         return searchDrivers;
 
     }
+
     public static void streamDriver(List<Driver> allDrivers) {
         // Show objects that have a salary greater than 2000, and sorted by them max.
         allDrivers.stream()

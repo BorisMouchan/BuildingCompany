@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import com.solvd.laba.classes.*;
+import com.solvd.laba.enums.DriveCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -76,6 +77,7 @@ public class BuildingCompany {
         //add custom method compare age employers in class Employee
         //add custom interface that convert levels to meters using constant height for Class Crane
         // ======================================================
+
 //        Project project1 = new Project();
 //        System.out.println(project1.calculateCost(5, 10));
 //
@@ -84,20 +86,20 @@ public class BuildingCompany {
 
 //        Project projectWithLambda = new Project("Lambda explanation", ProjectType.LARGE_BUILDING,500,"Vasya");
 //        Project.printProjectInfo(projectWithLambda);
-
+//
 //        Crane crane1 = new Crane("Zubr",2015,8,50);
 //        crane1.convertToMeters();
 //        System.out.println(crane1.check(10));
 
-//        List<Driver> allDrivers = new ArrayList<>();
-//        allDrivers.add(new Driver("Vasya", 25, 2000, DriveCategory.A));
-//        allDrivers.add(new Driver("Alex", 55, 5500, DriveCategory.B));
-//        allDrivers.add(new Driver("Rob", 35, 2500, DriveCategory.C));
-//        allDrivers.add(new Driver("Alex", 55, 5566, DriveCategory.B));
-//        allDrivers.add(new Driver("Tom", 55, 2500, DriveCategory.B));
-//        allDrivers.add(new Driver("Bob", 55, 50, DriveCategory.A));
-//        System.out.println(allDrivers.size());
-//        System.out.println(Driver.getDriverCategory(allDrivers,DriveCategory.B));
+        List<Driver> allDrivers = new ArrayList<>();
+        allDrivers.add(new Driver("Vasya", 25, 2000, DriveCategory.A));
+        allDrivers.add(new Driver("Alex", 55, 5500, DriveCategory.B));
+        allDrivers.add(new Driver("Rob", 35, 2500, DriveCategory.C));
+        allDrivers.add(new Driver("Alex", 55, 5566, DriveCategory.B));
+        allDrivers.add(new Driver("Tom", 55, 2500, DriveCategory.B));
+        allDrivers.add(new Driver("Bob", 55, 50, DriveCategory.A));
+        System.out.println(allDrivers.size());
+        System.out.println(Driver.getDriverCategory(allDrivers, DriveCategory.B));
 //
 //        Employee emp1 = new Driver("Den",35,431,DriveCategory.B);
 //        Employee emp2 = new Electric("John",45,540,2);
@@ -110,8 +112,8 @@ public class BuildingCompany {
         // use logger.info instead of print ln, norm?
         // create method checkReflections for object
         // use reflection for create object, work with fields, methods
-        // Driver.streamDriver(allDrivers);
 
+        Driver.streamDriver(allDrivers);
         checkReflections(new Employee());
 
 
@@ -124,7 +126,7 @@ public class BuildingCompany {
         LOGGER.info("Class name: " + ourClass);
         LOGGER.info("Fields: " + Arrays.toString(ourClass.getDeclaredFields()));
         LOGGER.info("Parent class: " + ourClass.getSuperclass());
-        LOGGER.info("Methods : " +  Arrays.toString(ourClass.getDeclaredMethods()));
+        LOGGER.info("Methods : " + Arrays.toString(ourClass.getDeclaredMethods()));
         LOGGER.info("Constructors : " + Arrays.toString(ourClass.getConstructors()));
         System.out.println("=========Creating================");
 
@@ -133,12 +135,12 @@ public class BuildingCompany {
         Object obj = null;
 
         try {
-            obj = (Object) ourClass.getConstructor(String.class,int.class,int.class).newInstance("Object", 5,2000);
+            obj = (Object) ourClass.getConstructor(String.class, int.class, int.class).newInstance("Object", 5, 2000);
             LOGGER.info(obj);
             System.out.println("=======Work with fields==========");
             Field salary = ourClass.getDeclaredField("salary");
             salary.setAccessible(true);
-            salary.set(obj,4000);
+            salary.set(obj, 4000);
             LOGGER.info(obj);
             System.out.println("=====Work with methods =====");
             Method printPersonalInfo = ourClass.getDeclaredMethod("printPersonalInfo");
@@ -157,5 +159,6 @@ public class BuildingCompany {
         }
     }
 }
+
 
 

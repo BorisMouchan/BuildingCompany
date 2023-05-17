@@ -69,17 +69,19 @@ public class Employee extends Person implements IPrintablle {
         System.out.println("Employee personal info");
     }
 
-    public static void compareEmployersAge(Employee employee1,Employee employee2) {
+    public static void compareEmployersAge(Employee employee1, Employee employee2) {
         IComparable<Employee, Employee> emp = (x, y) -> {
             if (x.getPersonAge() >= y.getPersonAge()) {
                 System.out.println(x.getPersonName() + " older or the similar age then " + y.getPersonName());
-            } else {System.out.println(y.getPersonName() + " older then " + x.getPersonName());}
+            } else {
+                System.out.println(y.getPersonName() + " older then " + x.getPersonName());
+            }
             return null;
         };
-        emp.compareEmployee(employee1,employee2);
+        emp.compareEmployee(employee1, employee2);
 
     }
 
 
-    }
+}
 

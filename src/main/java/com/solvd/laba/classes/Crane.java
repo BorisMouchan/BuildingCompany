@@ -91,7 +91,7 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
         }
     }
 
-    public boolean check(int level){
+    public boolean checkLevelBuilding(int level){
         Predicate<Integer> buildingHeight = i -> maxHeight <=i;
         return !buildingHeight.test(level);
     }
@@ -100,9 +100,6 @@ public class Crane extends Vehicles implements IDestroy, IBulding {
         IConvert<Crane> maxMetersHeught = c -> (double) 2.44 * c;
         System.out.println("Max height for " + Crane.this.getVehicleName() +" is "+ maxMetersHeught.convert(getMaxHeight()) +" meters!");
     }
-
-
-
 
 }
 

@@ -81,9 +81,7 @@ public class Project {
         BiFunction<Integer, Integer, Integer> func = (x1, x2) -> {
             return x1 * x2;
         };
-
-        Integer result = func.apply(daysWorksOnProject, costPerDay);
-        return result;
+        return func.apply(daysWorksOnProject, costPerDay);
     }
 
     public static void printProjectInfo(Project project){
