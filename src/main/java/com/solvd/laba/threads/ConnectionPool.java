@@ -27,7 +27,6 @@ public class ConnectionPool {
     public Connection getConnection() {
         try {
             semaphore.acquire();
-            //Only one thread at a time can access the below = Thread-safe
             synchronized (this) {
                     Connection connection = new Connection();
                     int capacity = freeConnections.capacity();
@@ -35,7 +34,6 @@ public class ConnectionPool {
                         return null;
                     }else {
                         if (usedConnections == null) {
-                            //if connection[i] is empty - then we lazy initialize it
                             usedConnections.add(connection);
                             capacity--;
                         }
@@ -45,7 +43,6 @@ public class ConnectionPool {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //if no unused connection was find in the array - we return null
         return null;
     }
 
