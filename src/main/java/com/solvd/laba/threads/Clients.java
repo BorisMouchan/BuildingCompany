@@ -3,32 +3,32 @@ package com.solvd.laba.threads;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Clients implements Runnable{
+public class Clients implements Runnable {
 
-    private static int clientID;
-    private ConnectionPool connectionPool;
+    Logger LOGGER = LogManager.getLogger(Clients.class);
+
+    private final int clientID;
+    private final ConnectionPool connectionPool;
 
     public Clients(int clientID, ConnectionPool connectionPool) {
         this.clientID = clientID;
         this.connectionPool = connectionPool;
     }
 
-    public static int getID() {
-        return clientID;
+    public int getID() {
+        return this.clientID;
     }
 
     @Override
     public void run() {
-        Logger LOGGER = LogManager.getLogger(Clients.class);
         Connection connection = connectionPool.getConnection();
         if (connection != null) {
-            LOGGER.info("[Client] The connection is acquired by client: " + this.getID());
+            LOGGER.info("[Client] The connection is acquired by client: " + clientID);
             connection.doSomethingWithDB(this);
             connectionPool.releaseConnection(connection);
-            LOGGER.info("[Client] The connection was released by client: " + this.getID());
+            LOGGER.info("[Client] The connection was released by client: " + clientID);
         } else {
             LOGGER.error("[Client] The connection is null");
         }
     }
-
 }
