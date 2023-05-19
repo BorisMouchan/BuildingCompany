@@ -21,6 +21,7 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() {
+
         try {
             semaphore.acquire();
             synchronized (this) {
@@ -49,6 +50,7 @@ public class ConnectionPool {
             for(int i=0;i<maxConnections;i++) {
                 if (usedConnections.contains(connection)) {
                     semaphore.release();
+                    usedConnections.remove(connection);
                     freeConnections.add(new Connection());
                 }
             }
