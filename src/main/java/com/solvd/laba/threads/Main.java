@@ -11,25 +11,31 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        int maxConnections = 4;
+        int maxConnections = 3;
         int initialConnections = 5;
         ConnectionPool connectionPool = new ConnectionPool(maxConnections);
 
-        // future
+        //CompletableFuture with CompletionStage
         for (int i = 0; i < initialConnections; i++) {
-            Clients client = new Clients(i + 1, connectionPool);
+            Clients client = new Clients(i+1, connectionPool);
             ExecutorService executor = Executors.newFixedThreadPool(maxConnections);
-            Future<?> future = executor.submit(client);
-            future.get();
-            LOGGER.info("Shutdown");
-            executor.shutdown();
+            CompletableFuture.runAsync(() -> new Thread(client).start(), executor).thenRun(executor::shutdown);
 
         }
+
+        // future
+//        for (int i = 0; i < initialConnections; i++) {
+//            Clients client = new Clients(i + 1, connectionPool);
+//            ExecutorService executor = Executors.newFixedThreadPool(maxConnections);
+//            Future<?> future = executor.submit(client);
+//            future.get();
+//            LOGGER.info("Shutdown");
+//            executor.shutdown();
+//        }
             // standart
 //        for (int i = 0; i < initialConnections; i++) {
 //            Clients client = new Clients(i+1, connectionPool);
 //            new Thread(client).start();
 //        }
-
     }
 }

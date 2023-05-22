@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Vector;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Semaphore;
 
 public class ConnectionPool {
@@ -20,42 +22,80 @@ public class ConnectionPool {
         initializeConnectionPool(maxConnections);
     }
 
-    public Connection getConnection() {
-
+    public CompletionStage<Void> getConnection() {
+        CompletableFuture<Void> future = new CompletableFuture<>();
         try {
             semaphore.acquire();
             synchronized (this) {
                 for (int i = 0; i < maxConnections; i++) {
                     if (!freeConnections.isEmpty()) {
                         Connection connection = new Connection();
-                        usedConnections.add(i,connection);
-                        freeConnections.remove(freeConnections.size() - 1);
+                        int finalI = i;
+                        CompletableFuture.supplyAsync(() -> {
+                            usedConnections.add(finalI, connection);
+                            freeConnections.remove(freeConnections.size() - 1);
+                            return usedConnections.get(finalI);
+                        });
                     }
-                    return usedConnections.get(i);
                 }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return future;
     }
+    // future
+//    public Connection getConnection() {
+//
+//        try {
+//            semaphore.acquire();
+//            synchronized (this) {
+//                for (int i = 0; i < maxConnections; i++) {
+//                    if (!freeConnections.isEmpty()) {
+//                        Connection connection = new Connection();
+//                        usedConnections.add(i,connection);
+//                        freeConnections.remove(freeConnections.size() - 1);
+//                    }
+//                    return usedConnections.get(i);
+//                }
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public void initializeConnectionPool(int maxConnections) {
-        for (int i =0; i<maxConnections;i++) {
+        for (int i = 0; i < maxConnections; i++) {
             freeConnections.add(new Connection());
         }
     }
-    public void releaseConnection(Connection connection) {
+
+    public void releaseConnection(CompletionStage<Void> connection) {
         synchronized (this) {
-            for(int i=0;i<maxConnections;i++) {
-                if (usedConnections.contains(connection)) {
-                    semaphore.release();
-                    usedConnections.remove(connection);
-                    freeConnections.add(new Connection());
-                }
+            semaphore.release();
+            for (int i = 0; i < maxConnections; i++) {
+                    CompletableFuture.runAsync(() -> {
+                        if (usedConnections.contains(connection)) {
+                            usedConnections.remove(connection);
+                            freeConnections.add(new Connection());
+                        }
+                    });
             }
         }
     }
+    //  future
+//    public void releaseConnection(Connection connection) {
+//        synchronized (this) {
+//            for(int i=0;i<maxConnections;i++) {
+//                if (usedConnections.contains(connection)) {
+//                    semaphore.release();
+//                    usedConnections.remove(connection);
+//                    freeConnections.add(new Connection());
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public String toString() {
