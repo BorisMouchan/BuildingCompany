@@ -13,7 +13,7 @@ public class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     private static int maxConnections;
     public static Vector<Connection> freeConnections = new Vector<>();
-    public static Vector<Connection> usedConnections = new Vector<>();
+    public static Vector<CompletableFuture<Connection>> usedConnections = new Vector<CompletableFuture<Connection>>();
     public static Semaphore semaphore;
 
     public ConnectionPool(int maxConnections) {
@@ -22,17 +22,16 @@ public class ConnectionPool {
         initializeConnectionPool(maxConnections);
     }
 
-    public CompletionStage<Void> getConnection() {
-        CompletableFuture<Void> future = new CompletableFuture<>();
+    public CompletionStage<Connection> getConnection() {
+        CompletableFuture<Connection> future = new CompletableFuture<>();
         try {
             semaphore.acquire();
             synchronized (this) {
                 for (int i = 0; i < maxConnections; i++) {
                     if (!freeConnections.isEmpty()) {
-                        Connection connection = new Connection();
                         int finalI = i;
                         CompletableFuture.supplyAsync(() -> {
-                            usedConnections.add(finalI, connection);
+                            usedConnections.add(finalI, future);
                             freeConnections.remove(freeConnections.size() - 1);
                             return usedConnections.get(finalI);
                         });
@@ -71,7 +70,7 @@ public class ConnectionPool {
         }
     }
 
-    public void releaseConnection(CompletionStage<Void> connection) {
+    public void releaseConnection(CompletionStage<Connection> connection) {
         synchronized (this) {
             semaphore.release();
             for (int i = 0; i < maxConnections; i++) {

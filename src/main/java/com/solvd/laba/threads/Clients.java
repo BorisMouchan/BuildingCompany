@@ -24,11 +24,11 @@ public class Clients implements Runnable {
 
     @Override
     public void run() {
-        CompletionStage<Void> connection = connectionPool.getConnection();
+        CompletionStage<Connection> connection = connectionPool.getConnection();
         if (connection != null) {
             LOGGER.info("[Client] The connection is acquired by client: " + clientID);
             LOGGER.info("[Connection] is used by client: " + clientID);
-            connectionPool.releaseConnection((CompletableFuture) connection);
+            connectionPool.releaseConnection(connection);
             LOGGER.info("[Client] The connection was released by client: " + clientID);
         } else {
             LOGGER.error("[Client] The connection is null");
